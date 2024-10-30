@@ -3,7 +3,7 @@
 	"id": "gentlereminders",
 	"version": "${version}",
 	"name": "Gentle Reminders",
-	"description": "Gentle Reminders send mindful messages to the player every so often based on a customizable config file.",
+	"description": "Gentle Reminders sends mindful messages to the player every so often based on a customizable config file.",
 	"authors": [
 		"jackperry2187"
 	],
