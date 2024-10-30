@@ -1,42 +1,47 @@
-![Gentle Reminders](./src/main/resources/assets/gentlereminders/icon_lg.png)  
+![Gentle Reminders](https://i.imgur.com/7Gk5WGY.png)  
 
 **Gentle Reminders** is a mod that sends mindful messages to the player every so often based on a customizable config file.
 
 ## Features  
-- [X] Generates a config file on client startup if one doesn't exist
-- [X] Checks version of config file to guarantee latest message updates
-- [X] Client reads from config file to get settings
-- [X] On world join, sends an initial message if the mod is enabled
-- [X] Every X ticks, based on config, sends a mindful message
-- [X] When all messages are sent (in a random order with no repeats), resets the list and starts over
-- [ ] Add a drastically large amount of messages  
-  - Current # of simple messages: **34**
-  - Current # of unique messages: **62**
-- [X] Improve config understandability (see [Config Guide](#config-guide))
-- [X] Add tons of commands for customization (see [Command Guide](#command-guide))
-- [ ] Implement more options into config, possibly split into multiple files
-- [ ] Super stretch: create own UI popup with more customization as opposed to using Minecraft's built-in toast system
+  
+- Generates a config file on client startup if one doesn't exist
+- Checks version of config file to guarantee latest message updates
+- Client reads from config file to get settings
+- On world join, sends an initial message if the mod is enabled
+- Every X ticks, based on config, sends a mindful message
+- When all messages are sent (in a random order with no repeats), resets the list and starts over
+- Config Guide below
+- Commands Guide below
 
-## Message Examples
+## Upcoming Features
+- Add a drastically large amount of messages
+  - Current # of simple messages: **34**
+  - Current # of unique/special messages: **62**
+- Implement more options into config, possibly split into multiple files
+- Super stretch: create own UI popup with more customization as opposed to using Minecraft's built-in toast system
+
+## Message Examples  
+  
 **Simple Message 1**
-![Simple Message 1](./src/main/resources/assets/gentlereminders/message_example_1.PNG)  
+![Simple Message 1](https://i.imgur.com/sKQtWIa.png)  
   
 **Simple Message 2**
-![Simple Message 2](./src/main/resources/assets/gentlereminders/message_example_2.PNG)  
+![Simple Message 2](https://i.imgur.com/0MAaaIN.png)  
   
 **Unique Message 1**
-![Unique Message 1](./src/main/resources/assets/gentlereminders/message_example_3.PNG)
+![Unique Message 1](https://i.imgur.com/qx95uVV.png)
 
 **Unique Message 2**
-![Unique Message 2](./src/main/resources/assets/gentlereminders/message_example_4.PNG)
+![Unique Message 2](https://i.imgur.com/sSVDy18.png)
 
 **Unique Message 3**
-![Unique Message 3](./src/main/resources/assets/gentlereminders/message_example_5.PNG)
+![Unique Message 3](https://i.imgur.com/1qbRo5u.png)
 
 **How it shows up in-game**
-![In-Game Example](./src/main/resources/assets/gentlereminders/message_example_ingame.PNG)
-
-## Config Guide
+![In-Game Example](https://i.imgur.com/5GP3yGw.png)
+  
+## Config Guide  
+  
 The config file can be found at `config/gentlereminders-config.toml` (after running the game once), which can be edited with any text editor. You can change the values for the interval between messages, add or remove messages, and enable or disable the mod.   
   
 Adding messages should be done in the following format:
@@ -88,13 +93,13 @@ Required arguments are surrounded by `[brackets]`
 ### `/gentlereminders remove Message [id]`
 - Removes a message by ID
 
-### `/gentlereminders enable MindfulCraft`
+### `/gentlereminders enable GentleReminders`
 - Enables the mod
 
 ### `/gentlereminders enable Message [id]`
 - Enables a message by ID
 
-### `/gentlereminders disable MindfulCraft`
+### `/gentlereminders disable GentleReminders`
 - Disables the mod
 
 ### `/gentlereminders disable Message [id]`
