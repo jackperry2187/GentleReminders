@@ -14,8 +14,9 @@
   - Current # of unique messages: **62**
 - [X] Improve config understandability (see [Config Guide](#config-guide))
 - [X] Add tons of commands for customization (see [Command Guide](#command-guide))
+- [X] Can choose a Display Style, currently the default Minecraft toast system or by a chat message
 - [ ] Implement more options into config, possibly split into multiple files
-- [ ] Super stretch: create own UI popup with more customization as opposed to using Minecraft's built-in toast system
+- [ ] Create own UI popup with more customization as opposed to using Minecraft's built-in toast system
 
 ## Message Examples
 **Simple Message 1**
@@ -70,11 +71,17 @@ Required arguments are surrounded by `[brackets]`
 ### `/gentlereminders get ConfigVersion`
 - Displays the version of the config file
 
+### `gentlereminders get DisplayStyle`
+- Displays the current display style
+
 ### `/gentlereminders get TicksBetweenMessages`
 - Displays the number of ticks between messages, as well as minutes and seconds
 
 ### `/gentlereminders get Messages [pageNumber]`
 - Displays 5 messages at a time, starting at the page number specified
+
+### `/gentleReminders set DisplayStyle [style]`
+- Sets the display style to either `"default"` or `"chat"`
 
 ### `/gentlereminders set TicksBetweenMessages [ticks]`
 - Sets the number of ticks between messages

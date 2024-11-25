@@ -16,8 +16,9 @@ import static jackperry2187.gentlereminders.util.Message.generateUniqueMessage;
 
 @Environment(value = EnvType.CLIENT)
 public class DefaultSettings {
-    public static final int configVersion = 3;
+    public static final int configVersion = 4;
     public static final boolean enabled = true;
+    public static final String displayStyle = "default";
     public static final int timeBetweenMessages = 10; // in minutes
     public static final String defaultTitle = "Gentle Reminder";
     public static final Formatting defaultTitleColor = Formatting.DARK_AQUA;

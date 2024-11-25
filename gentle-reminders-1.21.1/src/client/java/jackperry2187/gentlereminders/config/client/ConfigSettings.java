@@ -1,4 +1,4 @@
-package jackperry2187.gentlereminders.config;
+package jackperry2187.gentlereminders.config.client;
 
 import jackperry2187.gentlereminders.GentleReminders;
 import jackperry2187.gentlereminders.util.Message;
@@ -32,6 +32,8 @@ public class ConfigSettings {
     public static List<Message> messages = new ArrayList<>();
     public static int highestMessageID = 0;
 
+    public static String displayStyle = "chatMessage"; // defaultToast, customToast, chatMessage
+
     private static final boolean isDebug = false;
     private static final int debugTicksBetweenMessages = 20 * 7; // 7 seconds
 
@@ -60,6 +62,7 @@ public class ConfigSettings {
         GentleReminders.LOGGER.info("Config Version: {}", configVersion);
         // TODO: GentleReminders.LOGGER.info("Skip Config Version Check: {}", skipConfigVersionCheck);
         GentleReminders.LOGGER.info("Enabled: {}", enabled);
+        GentleReminders.LOGGER.info("Display Style: {}", displayStyle);
         GentleReminders.LOGGER.info("Time Between Messages: {} ticks, {} minutes", ticksBetweenMessages, ticksBetweenMessages / 20 / 60);
 //        GentleReminders.LOGGER.info("Messages:");
 //        for(Message message : messages) {
@@ -81,6 +84,20 @@ public class ConfigSettings {
                 // TODO: else if (line.startsWith("skipConfigVersionCheck=")) { skipConfigVersionCheck = Boolean.parseBoolean(line.split("=")[1]); }
                 else if(line.startsWith("enabled=")) {
                     enabled = Boolean.parseBoolean(line.split("=")[1]);
+                } else if(line.startsWith("displayStyle=")) {
+                    String got = line.split("=")[1].strip().replace("\"", "");
+                    switch(got) {
+                        case "default":
+                            displayStyle = "defaultToast";
+                            break;
+                        case "chat":
+                            displayStyle = "chatMessage";
+                            break;
+                        default:
+                            GentleReminders.LOGGER.error("Invalid display style: {}! Should be default or chat, setting to default", got);
+                            displayStyle = "defaultToast";
+                            break;
+                    }
                 } else if(line.startsWith("timeBetweenMessages=")) {
                     ticksBetweenMessages = Integer.parseInt(line.split("=")[1]) * 20 * 60; // convert minutes to ticks
                 } else if(line.startsWith("messages=[")) {

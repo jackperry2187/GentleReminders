@@ -1,4 +1,4 @@
-package jackperry2187.gentlereminders.clientCommands.customArguments;
+package jackperry2187.gentlereminders.commands.client.customArguments;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;

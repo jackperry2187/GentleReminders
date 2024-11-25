@@ -1,4 +1,4 @@
-package jackperry2187.gentlereminders.config;
+package jackperry2187.gentlereminders.config.client;
 
 import jackperry2187.gentlereminders.util.Message;
 import net.fabricmc.api.EnvType;
@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
-import static jackperry2187.gentlereminders.config.ConfigSettings.modConfigFile;
+import static jackperry2187.gentlereminders.config.client.ConfigSettings.modConfigFile;
 
 @Environment(value = EnvType.CLIENT)
 public class EditConfigSettings {

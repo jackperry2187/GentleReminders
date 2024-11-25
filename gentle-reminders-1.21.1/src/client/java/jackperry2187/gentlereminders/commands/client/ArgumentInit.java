@@ -1,10 +1,11 @@
-package jackperry2187.gentlereminders.clientCommands;
+package jackperry2187.gentlereminders.commands.client;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import jackperry2187.gentlereminders.clientCommands.customArguments.FormattingArgument;
+import jackperry2187.gentlereminders.commands.client.customArguments.DisplayStyleArgument;
+import jackperry2187.gentlereminders.commands.client.customArguments.FormattingArgument;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
@@ -19,6 +20,7 @@ public class ArgumentInit {
                         .then(ClientCommandManager.literal("TimeRemaining").executes(CommandInit::getTimeUntilNextMessage))
                         .then(ClientCommandManager.literal("ConfigPath").executes(CommandInit::getConfigPath))
                         .then(ClientCommandManager.literal("ConfigVersion").executes(CommandInit::getConfigVersion))
+                        .then(ClientCommandManager.literal("DisplayStyle").executes(CommandInit::getDisplayStyle))
                         .then(ClientCommandManager.literal("TicksBetweenMessages").executes(CommandInit::getTicksBetweenMessages))
                         .then(ClientCommandManager.literal("Messages")
                                 .then(ClientCommandManager.argument("pageNumber", IntegerArgumentType.integer(1))
@@ -26,6 +28,9 @@ public class ArgumentInit {
                         // TODO: add optional parameters that would allow you to search or filter messages by title/description/enabled/colors
                 )
                 .then(ClientCommandManager.literal("set")
+                        .then(ClientCommandManager.literal("DisplayStyle")
+                                .then(ClientCommandManager.argument("style", DisplayStyleArgument.displayStyle())
+                                .executes(CommandInit::setDisplayStyle)))
                         .then(ClientCommandManager.literal("TicksBetweenMessages")
                                 .then(ClientCommandManager.argument("ticks", IntegerArgumentType.integer())
                                 .executes(CommandInit::setTicksBetweenMessages)))
