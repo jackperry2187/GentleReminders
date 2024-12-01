@@ -15,27 +15,29 @@
 - [X] Improve config understandability (see [Config Guide](#config-guide))
 - [X] Add tons of commands for customization (see [Command Guide](#command-guide))
 - [X] Can choose a Display Style, currently the default Minecraft toast system or by a chat message
+- [X] Can choose some custom toasts via Display Style, currently light or dark
+- [ ] More custom toast display styles
+- [ ] Custom message icons (instead of an exclamation point)
+- [ ] Custom message noises?
+- [ ] Make some super cool GUI to edit how the custom toasts look
 - [ ] Implement more options into config, possibly split into multiple files
 - [ ] Create own UI popup with more customization as opposed to using Minecraft's built-in toast system
 
 ## Message Examples
-**Simple Message 1**
-![Simple Message 1](./src/main/resources/assets/gentlereminders/message_example_1.PNG)  
+**A Simple Message, using the `"default"` display style**
+![Simple Message Default](./src/main/resources/assets/gentlereminders/message_example_1.PNG)
   
-**Simple Message 2**
-![Simple Message 2](./src/main/resources/assets/gentlereminders/message_example_2.PNG)  
-  
-**Unique Message 1**
-![Unique Message 1](./src/main/resources/assets/gentlereminders/message_example_3.PNG)
+**A Unique Message, using the `"chat"` display style**
+![Unique Message Chat](./src/main/resources/assets/gentlereminders/message_example_chat.PNG)
 
-**Unique Message 2**
-![Unique Message 2](./src/main/resources/assets/gentlereminders/message_example_4.PNG)
+**A Unique Message, using the `"light"` display style**
+![Unique Message Light](./src/main/resources/assets/gentlereminders/message_example_light.PNG)
 
-**Unique Message 3**
-![Unique Message 3](./src/main/resources/assets/gentlereminders/message_example_5.PNG)
+**A Unique Message, using the `"dark"` display style**
+![Unique Message Dark](./src/main/resources/assets/gentlereminders/message_example_dark.PNG)
 
-**How it shows up in-game**
-![In-Game Example](./src/main/resources/assets/gentlereminders/message_example_ingame.PNG)
+**A Unique Message in-game, using the `"default"` display style**
+![Unique Message In-Game](./src/main/resources/assets/gentlereminders/message_example_ingame.PNG)
 
 ## Config Guide
 The config file can be found at `config/gentlereminders-config.toml` (after running the game once), which can be edited with any text editor. You can change the values for the interval between messages, add or remove messages, and enable or disable the mod.   
@@ -71,7 +73,7 @@ Required arguments are surrounded by `[brackets]`
 ### `/gentlereminders get ConfigVersion`
 - Displays the version of the config file
 
-### `gentlereminders get DisplayStyle`
+### `/gentlereminders get DisplayStyle`
 - Displays the current display style
 
 ### `/gentlereminders get TicksBetweenMessages`

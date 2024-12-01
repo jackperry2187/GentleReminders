@@ -50,18 +50,19 @@ public class GRHUDHandler {
     }
 
     public static void startShowingMessage() {
-        switch(ConfigSettings.displayStyle) {
-            case "defaultToast":
+        switch(ConfigSettings.getDisplayStyle()) {
+            case "default":
                 // the default toast already plays a sound so we don't need to
                 currentMessage = currentMessage != null ? currentMessage : GRMessageHandler.getRandomMessage();
                 addDefaultToast(currentMessage);
                 break;
-            case "customToast":
+            case "light":
+            case "dark":
                 client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_TOAST_IN, 1.0F, 1.0F));
                 currentMessage = currentMessage != null ? currentMessage : GRMessageHandler.getRandomMessage();
                 isShowingCustomMessage = true;
                 break;
-            case "chatMessage":
+            case "chat":
                 client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.BLOCK_DECORATED_POT_INSERT, 1.0F, 1.0F));
                 currentMessage = currentMessage != null ? currentMessage : GRMessageHandler.getRandomMessage();
                 addChatMessage(currentMessage);

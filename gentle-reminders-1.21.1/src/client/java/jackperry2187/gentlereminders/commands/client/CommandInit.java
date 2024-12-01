@@ -81,8 +81,7 @@ public class CommandInit {
 
     public static int getDisplayStyle(CommandContext<FabricClientCommandSource> context) {
         context.getSource().sendFeedback(Text.literal("Display style:").formatted(Formatting.AQUA));
-        String parsedStyle = ConfigSettings.displayStyle.equals("defaultToast") ? "default" : "chat";
-        context.getSource().sendFeedback(Text.literal(parsedStyle).formatted(Formatting.GOLD));
+        context.getSource().sendFeedback(Text.literal(ConfigSettings.getDisplayStyle()).formatted(Formatting.GOLD));
         return 1;
     }
 
@@ -128,12 +127,11 @@ public class CommandInit {
 
     public static int setDisplayStyle(CommandContext<FabricClientCommandSource> context) {
         String style = context.getArgument("style", String.class);
-        String unParsedStyle = style.equals("defaultToast") ? "default" : "chat";
 
-        ConfigSettings.displayStyle = style;
-        boolean fileSuccess = setFileValue("displayStyle", "\"" + unParsedStyle + "\"");
+        ConfigSettings.setDisplayStyle(style);
+        boolean fileSuccess = setFileValue("displayStyle", "\"" + style + "\"");
 
-        context.getSource().sendFeedback(Text.literal("Display style has been set to ").formatted(Formatting.AQUA).append(Text.literal(unParsedStyle).formatted(Formatting.GOLD)));
+        context.getSource().sendFeedback(Text.literal("Display style has been set to ").formatted(Formatting.AQUA).append(Text.literal(style).formatted(Formatting.GOLD)));
 
         if(fileSuccess) {
             context.getSource().sendFeedback(Text.literal("Config file has been updated!").formatted(Formatting.GOLD));

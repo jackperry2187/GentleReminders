@@ -17,15 +17,25 @@ public class DisplayStyleArgument implements ArgumentType<String> {
     public String parse(StringReader reader) throws CommandSyntaxException {
         final String entered = reader.readString();
 
-        if(!entered.equals("default") && !entered.equals("chat")) throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherParseException().create("Must input default or chat!");
-
-        return entered.equals("default") ? "defaultToast" : "chatMessage";
+        return switch (entered) {
+            case "default", "light", "dark", "chat" -> entered;
+            default ->
+                    throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherParseException().create("Must input default or chat!");
+        };
     }
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
         if("default".startsWith(builder.getRemaining().toLowerCase())) {
             builder.suggest("default");
+        }
+
+        if("light".startsWith(builder.getRemaining().toLowerCase())) {
+            builder.suggest("light");
+        }
+
+        if("dark".startsWith(builder.getRemaining().toLowerCase())) {
+            builder.suggest("dark");
         }
 
         if("chat".startsWith(builder.getRemaining().toLowerCase())) {

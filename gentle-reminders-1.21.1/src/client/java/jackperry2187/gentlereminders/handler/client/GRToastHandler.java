@@ -1,5 +1,6 @@
 package jackperry2187.gentlereminders.handler.client;
 
+import jackperry2187.gentlereminders.config.client.ConfigSettings;
 import jackperry2187.gentlereminders.util.Message;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -23,7 +24,7 @@ public class GRToastHandler {
     public static void renderCustomToast(DrawContext drawContext, Message currentMessage) {
         // show message
         if(GRTickManager.totalTickCounter < GRTickManager.ticksWhenStartedShowing + showMessageDuration - fadeOutDuration) {
-            showCustomToast(drawContext, currentMessage, 1.0F);
+            showCustomToast(drawContext, currentMessage, 1.0F, ConfigSettings.toastTexture);
         }
 
         // at the beginning of fade out, play fade out sound
@@ -34,11 +35,11 @@ public class GRToastHandler {
         // fade out message
         if(GRTickManager.totalTickCounter >= GRTickManager.ticksWhenStartedShowing + showMessageDuration - fadeOutDuration) {
             float fadeOutAmount = MathHelper.clamp((float) Math.abs(GRTickManager.totalTickCounter - GRTickManager.ticksWhenStartedShowing - showMessageDuration) / fadeOutDuration, 0.0F, 1.0F);
-            showCustomToast(drawContext, currentMessage, fadeOutAmount * fadeOutAmount);
+            showCustomToast(drawContext, currentMessage, fadeOutAmount * fadeOutAmount, ConfigSettings.toastTexture);
         }
     }
 
-    private static void showCustomToast(DrawContext drawContext, Message message, float fadeOutAmount) {
+    private static void showCustomToast(DrawContext drawContext, Message message, float fadeOutAmount, Identifier texture) {
         int w = drawContext.getScaledWindowWidth();
         TextRenderer textRenderer = client.textRenderer;
 
@@ -56,7 +57,7 @@ public class GRToastHandler {
 
         int textStartX = w - textureWWithFadeOut - 5;
 
-        drawContext.drawGuiTexture(Identifier.ofVanilla("toast/system"), w - textureWWithFadeOut - 30, 0, textureW + 30, textureH);
+        drawContext.drawTexture(texture, w - textureWWithFadeOut - 30, 0, 0, 0, textureW + 30, textureH, textureW + 30, textureH);
 
         for(int t = 0; t < titleLines.size(); ++t) {
             drawContext.drawText(client.textRenderer, titleLines.get(t), textStartX, 7 + t * 12, -1, false);
