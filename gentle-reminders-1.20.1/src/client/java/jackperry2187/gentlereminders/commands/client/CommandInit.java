@@ -1,8 +1,8 @@
-package jackperry2187.gentlereminders.clientCommands;
+package jackperry2187.gentlereminders.commands.client;
 
 import com.mojang.brigadier.context.CommandContext;
-import jackperry2187.gentlereminders.GentleRemindersClient;
-import jackperry2187.gentlereminders.config.ConfigSettings;
+import jackperry2187.gentlereminders.config.client.ConfigSettings;
+import jackperry2187.gentlereminders.handler.client.GRTickManager;
 import jackperry2187.gentlereminders.util.Message;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,7 +12,7 @@ import net.minecraft.util.Formatting;
 
 import java.util.List;
 
-import static jackperry2187.gentlereminders.config.EditConfigSettings.*;
+import static jackperry2187.gentlereminders.config.client.EditConfigSettings.*;
 
 @Environment(value = EnvType.CLIENT)
 public class CommandInit {
@@ -30,9 +30,11 @@ public class CommandInit {
         source.sendFeedback(Text.literal("/gentlereminders get TimeRemaining").formatted(Formatting.GOLD).append(Text.literal(" - Displays the time remaining until the next mindful message.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("/gentlereminders get ConfigPath").formatted(Formatting.GOLD).append(Text.literal(" - Displays the path to the config file.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("/gentlereminders get ConfigVersion").formatted(Formatting.GOLD).append(Text.literal(" - Displays the version of the config file.").formatted(Formatting.GRAY)));
+        source.sendFeedback(Text.literal("/gentlereminders get DisplayStyle").formatted(Formatting.GOLD).append(Text.literal(" - Displays the display style of the messages.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("/gentlereminders get TicksBetweenMessages").formatted(Formatting.GOLD).append(Text.literal(" - Displays the number of ticks between messages, as well as minutes and seconds.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("/gentlereminders get Messages").formatted(Formatting.GOLD).append(Text.literal(" [pageNumber]").formatted(Formatting.GREEN)).append(Text.literal(" - Displays the messages in the config file.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("Set commands:").formatted(Formatting.LIGHT_PURPLE));
+        source.sendFeedback(Text.literal("/gentlereminders set DisplayStyle").formatted(Formatting.GOLD).append(Text.literal(" [style]").formatted(Formatting.GREEN)).append(Text.literal(" - Sets the display style of the messages.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("/gentlereminders set TicksBetweenMessages").formatted(Formatting.GOLD).append(Text.literal(" [ticks]").formatted(Formatting.GREEN)).append(Text.literal(" - Sets the number of ticks between messages. Remember there are 20 ticks per second when inputting a number.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("/gentlereminders set Message").formatted(Formatting.GOLD).append(Text.literal(" [id] [title] [message] [enabled] [titleColor] [messageColor]").formatted(Formatting.GREEN)).append(Text.literal(" - Overwrites the title, message, enabled status, and colors of a message by ID.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("Add commands:").formatted(Formatting.LIGHT_PURPLE));
@@ -51,7 +53,7 @@ public class CommandInit {
 
     public static int getTimeUntilNextMessage(CommandContext<FabricClientCommandSource> context) {
         // account for the fact that the ticker counter is NOT reset to 0 when the message is sent
-        int remainingTime = (ConfigSettings.ticksBetweenMessages - (GentleRemindersClient.tickCounter % ConfigSettings.ticksBetweenMessages));
+        int remainingTime = (ConfigSettings.ticksBetweenMessages - (GRTickManager.totalTickCounter % ConfigSettings.ticksBetweenMessages));
         // ticks -> minutes
         double remainingTimeInMinutes = (double) remainingTime / 20 / 60;
         // truncate the decimal
@@ -74,6 +76,12 @@ public class CommandInit {
     public static int getConfigVersion(CommandContext<FabricClientCommandSource> context) {
         context.getSource().sendFeedback(Text.literal("Config version:").formatted(Formatting.AQUA));
         context.getSource().sendFeedback(Text.literal(ConfigSettings.configVersion + "").formatted(Formatting.GOLD));
+        return 1;
+    }
+
+    public static int getDisplayStyle(CommandContext<FabricClientCommandSource> context) {
+        context.getSource().sendFeedback(Text.literal("Display style:").formatted(Formatting.AQUA));
+        context.getSource().sendFeedback(Text.literal(ConfigSettings.getDisplayStyle()).formatted(Formatting.GOLD));
         return 1;
     }
 
@@ -113,6 +121,23 @@ public class CommandInit {
         }
 
         context.getSource().sendFeedback(Text.literal("Page ").formatted(Formatting.AQUA).append(Text.literal(pageNumber + "").formatted(Formatting.GOLD)).append(Text.literal(" of ").formatted(Formatting.AQUA).append(Text.literal(totalPages + "").formatted(Formatting.GOLD))));
+
+        return 1;
+    }
+
+    public static int setDisplayStyle(CommandContext<FabricClientCommandSource> context) {
+        String style = context.getArgument("style", String.class);
+
+        ConfigSettings.setDisplayStyle(style);
+        boolean fileSuccess = setFileValue("displayStyle", "\"" + style + "\"");
+
+        context.getSource().sendFeedback(Text.literal("Display style has been set to ").formatted(Formatting.AQUA).append(Text.literal(style).formatted(Formatting.GOLD)));
+
+        if(fileSuccess) {
+            context.getSource().sendFeedback(Text.literal("Config file has been updated!").formatted(Formatting.GOLD));
+        } else {
+            context.getSource().sendFeedback(Text.literal("Failed to update config file! Value has still been modified for this session.").formatted(Formatting.RED));
+        }
 
         return 1;
     }

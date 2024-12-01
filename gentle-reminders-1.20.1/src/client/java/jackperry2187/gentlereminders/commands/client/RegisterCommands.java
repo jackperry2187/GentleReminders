@@ -1,8 +1,8 @@
-package jackperry2187.gentlereminders.clientCommands;
+package jackperry2187.gentlereminders.commands.client;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import jackperry2187.gentlereminders.GentleReminders;
-import jackperry2187.gentlereminders.clientCommands.customArguments.FormattingArgument;
+import jackperry2187.gentlereminders.commands.client.customArguments.FormattingArgument;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -10,7 +10,7 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.fabric.api.command.v2.ArgumentTypeRegistry;
 import net.minecraft.command.argument.serialize.ConstantArgumentSerializer;
 
-import static jackperry2187.gentlereminders.clientCommands.ArgumentInit.getCommandsWithArguments;
+import static jackperry2187.gentlereminders.commands.client.ArgumentInit.getCommandsWithArguments;
 
 @Environment(value = EnvType.CLIENT)
 public class RegisterCommands {
