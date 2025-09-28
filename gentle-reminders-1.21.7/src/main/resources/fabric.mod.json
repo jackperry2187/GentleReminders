@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "gentlereminders",
+	"version": "${version}",
+	"name": "Gentle Reminders",
+	"description": "Gentle Reminders sends mindful messages to the player every so often based on a customizable config file.",
+	"authors": [
+		"jackperry2187"
+	],
+	"contact": {
+		"homepage": "https://jackperry2187.com/",
+		"sources": "https://github.com/jackperry2187/mindfulcraft"
+	},
+	"license": "GNU-GPL-3.0",
+	"icon": "assets/gentlereminders/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"jackperry2187.gentlereminders.GentleReminders"
+		],
+		"client": [
+			"jackperry2187.gentlereminders.GentleRemindersClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.16.9",
+		"minecraft": "~1.21.7",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

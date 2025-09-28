@@ -1,7 +1,7 @@
 ![Gentle Reminders](https://i.imgur.com/7Gk5WGY.png)  
 
 **Gentle Reminders** is a mod that sends mindful messages to the player every so often based on a customizable config file.  
-Available for download on [Curseforge](https://www.curseforge.com/minecraft/mc-mods/gentlereminders) and [Modrinth](https://modrinth.com/mod/gentlereminders). Thank you for over 150 downloads!   
+Available for download on [Curseforge](https://www.curseforge.com/minecraft/mc-mods/gentlereminders) and [Modrinth](https://modrinth.com/mod/gentlereminders). Thank you for over 1800 downloads!   
 
 ## Features  
   
