@@ -16,12 +16,11 @@
 - [X] Add tons of commands for customization (see [Command Guide](#command-guide))
 - [X] Can choose a Display Style, currently the default Minecraft toast system or by a chat message
 - [X] Can choose some custom toasts via Display Style, currently light or dark
-- [ ] More custom toast display styles
+- [X] More custom toast display styles
+  - [ ] Allow for non-vanilla blocks to be used as custom bg/border on toasts
 - [ ] Custom message icons (instead of an exclamation point)
 - [ ] Custom message noises?
 - [ ] Make some super cool GUI to edit how the custom toasts look
-- [ ] Implement more options into config, possibly split into multiple files
-- [ ] Create own UI popup with more customization as opposed to using Minecraft's built-in toast system
 
 ## Message Examples
 **A Simple Message, using the `"default"` display style**
@@ -35,6 +34,18 @@
 
 **A Unique Message, using the `"dark"` display style**
 ![Unique Message Dark](./src/main/resources/assets/gentlereminders/message_example_dark.PNG)
+
+**A Unique Message, using the `"custom"` display style; blackstone background, and resin brick border**
+![Unique Message Custom Blackstone Resin Brick](./src/main/resources/assets/gentlereminders/message_example_blackstone_resin_brick.png)
+
+**A Unique Message, using the `"custom"` display style; dark oak planks background, and amethyst block border**
+![Unique Message Custom Dark Oak Plank Amethyst Block](./src/main/resources/assets/gentlereminders/message_example_dark_oak_planks_amethyst_block.png)
+
+**A Unique Message, using the `"custom"` display style; redstone block background, diorite border**
+![Unique Message Custom Redstone Block Diorite](./src/main/resources/assets/gentlereminders/message_example_redstone_diorite.png)
+
+**A Unique Message, using the `"custom"` display style; slime block background, sand border**
+![Unique Message Custom Slime Block Sand](./src/main/resources/assets/gentlereminders/message_example_slime_sand.png)
 
 **A Unique Message in-game, using the `"default"` display style**
 ![Unique Message In-Game](./src/main/resources/assets/gentlereminders/message_example_ingame.PNG)
@@ -83,7 +94,10 @@ Required arguments are surrounded by `[brackets]`
 - Displays 5 messages at a time, starting at the page number specified
 
 ### `/gentleReminders set DisplayStyle [style]`
-- Sets the display style to either `"default"` or `"chat"`
+- Sets the display style to either `"default"`, `"light"`, `"dark"`, or `"chat"` (use the below command for `custom`)
+
+### `/gentleReminders set CustomDisplayStyle [bgTexture] [borderTexture] [enableIcon]`
+- Sets the display style to `custom`, then sets the background and border textures, as well as whether or not to include the exclamation mark
 
 ### `/gentlereminders set TicksBetweenMessages [ticks]`
 - Sets the number of ticks between messages
@@ -97,13 +111,13 @@ Required arguments are surrounded by `[brackets]`
 ### `/gentlereminders remove Message [id]`
 - Removes a message by ID
 
-### `/gentlereminders enable MindfulCraft`
+### `/gentlereminders enable GentleReminders`
 - Enables the mod
 
 ### `/gentlereminders enable Message [id]`
 - Enables a message by ID
 
-### `/gentlereminders disable MindfulCraft`
+### `/gentlereminders disable GentleReminders`
 - Disables the mod
 
 ### `/gentlereminders disable Message [id]`

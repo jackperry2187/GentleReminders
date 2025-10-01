@@ -16,9 +16,12 @@ import static jackperry2187.gentlereminders.util.Message.generateUniqueMessage;
 
 @Environment(value = EnvType.CLIENT)
 public class DefaultSettings {
-    public static final int configVersion = 4;
+    public static final int configVersion = 5;
     public static final boolean enabled = true;
     public static final String displayStyle = "default";
+    public static final String customBGTexture = "minecraft:dark_oak_planks";
+    public static final String customBorderTexture = "minecraft:amethyst_block";
+    public static final boolean customIncludeIcon = true;
     public static final int timeBetweenMessages = 10; // in minutes
     public static final String defaultTitle = "Gentle Reminder";
     public static final Formatting defaultTitleColor = Formatting.DARK_AQUA;
