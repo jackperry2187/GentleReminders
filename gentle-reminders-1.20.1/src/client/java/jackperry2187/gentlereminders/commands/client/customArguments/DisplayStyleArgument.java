@@ -18,7 +18,7 @@ public class DisplayStyleArgument implements ArgumentType<String> {
         final String entered = reader.readString();
 
         return switch (entered) {
-            case "default", "light", "dark", "chat" -> entered;
+            case "default", "light", "dark", "custom", "chat" -> entered;
             default ->
                     throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherParseException().create("Must input default or chat!");
         };
@@ -36,6 +36,10 @@ public class DisplayStyleArgument implements ArgumentType<String> {
 
         if("dark".startsWith(builder.getRemaining().toLowerCase())) {
             builder.suggest("dark");
+        }
+
+        if("custom".startsWith(builder.getRemaining().toLowerCase())) {
+            builder.suggest("custom");
         }
 
         if("chat".startsWith(builder.getRemaining().toLowerCase())) {
