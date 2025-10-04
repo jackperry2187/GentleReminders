@@ -44,7 +44,7 @@ public class ConfigSettings {
     public static Identifier toastTexture = DEFAULT_CUSTOM_TOAST;
 
 
-    private static final boolean isDebug = true;
+    private static final boolean isDebug = false;
     private static final int debugTicksBetweenMessages = 20 * 7; // 7 seconds
 
     public static void initialize() {
