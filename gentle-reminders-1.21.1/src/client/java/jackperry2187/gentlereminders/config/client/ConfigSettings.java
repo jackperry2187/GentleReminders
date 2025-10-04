@@ -33,10 +33,14 @@ public class ConfigSettings {
     public static List<Message> messages = new ArrayList<>();
     public static int highestMessageID = 0;
 
-    private static String displayStyle = "default"; // default, light, dark, chat
-    private static final Identifier DEFAULT_CUSTOM_TOAST = Identifier.ofVanilla("toast/system");
-    private static final Identifier CUSTOM_LIGHT_MODE = Identifier.of("gentlereminders", "custom_toasts/system_light.png");
-    private static final Identifier CUSTOM_DARK_MODE = Identifier.of("gentlereminders", "custom_toasts/system_dark.png");
+    private static String displayStyle = "default"; // default, light, dark, custom, chat
+    private static final Identifier DEFAULT_CUSTOM_TOAST = Identifier.ofVanilla("textures/gui/sprites/toast/system.png");
+    private static final Identifier LIGHT_MODE = Identifier.of("gentlereminders", "custom_toasts/system_light.png");
+    private static final Identifier DARK_MODE = Identifier.of("gentlereminders", "custom_toasts/system_dark.png");
+    
+    public static Identifier CUSTOM_BG_TEXTURE = Identifier.ofVanilla("textures/block/dark_oak_planks.png");
+    public static Identifier CUSTOM_BORDER_TEXTURE = Identifier.ofVanilla("textures/block/amethyst_block.png");
+    public static Boolean CUSTOM_INCLUDE_ICON = true;
     public static Identifier toastTexture = DEFAULT_CUSTOM_TOAST;
 
 
@@ -98,12 +102,16 @@ public class ConfigSettings {
                             displayStyle = "default";
                             break;
                         case "light":
-                            toastTexture = CUSTOM_LIGHT_MODE;
+                            toastTexture = LIGHT_MODE;
                             displayStyle = "light";
                             break;
                         case "dark":
-                            toastTexture = CUSTOM_DARK_MODE;
+                            toastTexture = DARK_MODE;
                             displayStyle = "dark";
+                            break;
+                        case "custom":
+                            toastTexture = CUSTOM_BG_TEXTURE;
+                            displayStyle = "custom";
                             break;
                         case "chat":
                             displayStyle = "chat";
@@ -162,12 +170,16 @@ public class ConfigSettings {
                 displayStyle = "default";
                 break;
             case "light":
-                toastTexture = CUSTOM_LIGHT_MODE;
+                toastTexture = LIGHT_MODE;
                 displayStyle = "light";
                 break;
             case "dark":
-                toastTexture = CUSTOM_DARK_MODE;
+                toastTexture = DARK_MODE;
                 displayStyle = "dark";
+                break;
+            case "custom":
+                toastTexture = CUSTOM_BG_TEXTURE;
+                displayStyle = "custom";
                 break;
             case "chat":
                 displayStyle = "chat";
@@ -177,5 +189,17 @@ public class ConfigSettings {
                 displayStyle = "default";
                 break;
         }
+    }
+
+    public static void setCustomBackgroundTexture(Identifier texture) {
+        CUSTOM_BG_TEXTURE = texture;
+    }
+
+    public static void setCustomBorderTexture(Identifier texture) {
+        CUSTOM_BORDER_TEXTURE = texture;
+    }
+
+    public static void setCustomIncludeIcon(Boolean include) {
+        CUSTOM_INCLUDE_ICON = include;
     }
 }

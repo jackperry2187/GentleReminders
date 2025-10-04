@@ -9,6 +9,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class CommandInit {
         source.sendFeedback(Text.literal("/gentlereminders get Messages").formatted(Formatting.GOLD).append(Text.literal(" [pageNumber]").formatted(Formatting.GREEN)).append(Text.literal(" - Displays the messages in the config file.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("Set commands:").formatted(Formatting.LIGHT_PURPLE));
         source.sendFeedback(Text.literal("/gentlereminders set DisplayStyle").formatted(Formatting.GOLD).append(Text.literal(" [style]").formatted(Formatting.GREEN)).append(Text.literal(" - Sets the display style of the messages.").formatted(Formatting.GRAY)));
+        source.sendFeedback(Text.literal("/gentlereminders set CustomDisplayStyle").formatted(Formatting.GOLD).append(Text.literal(" [bgTexture] [borderTexture] [includeIcon]").formatted(Formatting.GREEN)).append(Text.literal(" - Sets the display style of the messages to custom, and sets the background and border textures and whether to include the icon.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("/gentlereminders set TicksBetweenMessages").formatted(Formatting.GOLD).append(Text.literal(" [ticks]").formatted(Formatting.GREEN)).append(Text.literal(" - Sets the number of ticks between messages. Remember there are 20 ticks per second when inputting a number.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("/gentlereminders set Message").formatted(Formatting.GOLD).append(Text.literal(" [id] [title] [message] [enabled] [titleColor] [messageColor]").formatted(Formatting.GREEN)).append(Text.literal(" - Overwrites the title, message, enabled status, and colors of a message by ID.").formatted(Formatting.GRAY)));
         source.sendFeedback(Text.literal("Add commands:").formatted(Formatting.LIGHT_PURPLE));
@@ -128,11 +130,16 @@ public class CommandInit {
     public static int setDisplayStyle(CommandContext<FabricClientCommandSource> context) {
         String style = context.getArgument("style", String.class);
 
+        if(style.equals("custom")) {
+            context.getSource().sendFeedback(Text.literal("Use /gentlereminders set CustomDisplayStyle instead!").formatted(Formatting.RED));
+            return 1;
+        }
+
         ConfigSettings.setDisplayStyle(style);
         boolean fileSuccess = setFileValue("displayStyle", "\"" + style + "\"");
 
         context.getSource().sendFeedback(Text.literal("Display style has been set to ").formatted(Formatting.AQUA).append(Text.literal(style).formatted(Formatting.GOLD)));
-
+        
         if(fileSuccess) {
             context.getSource().sendFeedback(Text.literal("Config file has been updated!").formatted(Formatting.GOLD));
         } else {
@@ -140,6 +147,39 @@ public class CommandInit {
         }
 
         return 1;
+    }
+
+    public static int setCustomDisplayStyle(CommandContext<FabricClientCommandSource> context) {
+        String bgTexture = context.getArgument("bgTexture", Identifier.class).toString();
+        String borderTexture = context.getArgument("borderTexture", Identifier.class).toString();
+        Boolean includeIcon = context.getArgument("includeIcon", Boolean.class);
+
+        // bgTexture and borderTexture should be formatted as minecraft:block_id, but we want to change it to Identifier.ofVanilla("textures/block/block_id.png")
+        Identifier bgTextureIdentifier = Identifier.ofVanilla("textures/block/" + bgTexture.replace("minecraft:", "") + ".png");
+        Identifier borderTextureIdentifier = Identifier.ofVanilla("textures/block/" + borderTexture.replace("minecraft:", "") + ".png");
+
+        ConfigSettings.setDisplayStyle("custom");
+        ConfigSettings.setCustomBackgroundTexture(bgTextureIdentifier);
+        ConfigSettings.setCustomBorderTexture(borderTextureIdentifier);
+        ConfigSettings.setCustomIncludeIcon(includeIcon);
+        boolean fileSuccess = setFileValue("displayStyle", "\"custom\"");
+        boolean fileSuccess2 = setFileValue("customBGTexture", "\"" + bgTexture + "\"");
+        boolean fileSuccess3 = setFileValue("customBorderTexture", "\"" + borderTexture + "\"");
+        boolean fileSuccess4 = setFileValue("customIncludeIcon", "\"" + includeIcon + "\"");
+
+        context.getSource().sendFeedback(Text.literal("Display style has been set to ").formatted(Formatting.AQUA).append(Text.literal("custom").formatted(Formatting.GOLD)));
+        context.getSource().sendFeedback(Text.literal("Background texture has been set to ").formatted(Formatting.AQUA).append(bgTexture.toString()).formatted(Formatting.GOLD));
+        context.getSource().sendFeedback(Text.literal("Border texture has been set to ").formatted(Formatting.AQUA).append(borderTexture.toString()).formatted(Formatting.GOLD));
+        context.getSource().sendFeedback(Text.literal("Include icon has been set to ").formatted(Formatting.AQUA).append(Text.literal(includeIcon + "").formatted(Formatting.GOLD)));
+
+        if(fileSuccess && fileSuccess2 && fileSuccess3 && fileSuccess4) {
+            context.getSource().sendFeedback(Text.literal("Config file has been updated!").formatted(Formatting.GOLD));
+        } else {
+            context.getSource().sendFeedback(Text.literal("Failed to update config file! Value has still been modified for this session.").formatted(Formatting.RED));
+        }
+
+        return 1;
+        
     }
 
     public static int setTicksBetweenMessages(CommandContext<FabricClientCommandSource> context) {
