@@ -11,6 +11,7 @@ Available for download on [Curseforge](https://www.curseforge.com/minecraft/mc-m
 - On world join, sends an initial message if the mod is enabled
 - Every X ticks, based on config, sends a mindful message
 - When all messages are sent (in a random order with no repeats), resets the list and starts over
+- New (as of v1.5.2) customizable toasts with block textures as the background and border!
 - Config Guide below
 - Commands Guide below
 
@@ -18,8 +19,9 @@ Available for download on [Curseforge](https://www.curseforge.com/minecraft/mc-m
 - Add a drastically large amount of messages
   - Current # of simple messages: **34**
   - Current # of unique/special messages: **62**
-- Implement more options into config, possibly split into multiple files
-- Super stretch: create own UI popup with more customization as opposed to using Minecraft's built-in toast system
+- Add support for modded blocks to be used as the background/border
+- Add custom message icons (not just an exclamation!)
+- Make a cool GUI to edit custom toasts
 
 ## Message Examples  
   
@@ -35,8 +37,17 @@ Available for download on [Curseforge](https://www.curseforge.com/minecraft/mc-m
 **Unique Message 2**
 ![Unique Message 2](https://i.imgur.com/sSVDy18.png)
 
-**Unique Message 3**
-![Unique Message 3](https://i.imgur.com/1qbRo5u.png)
+**Custom Dark Oak Planks Background and Amethyst Block Border**
+![Custom Message 1](https://i.imgur.com/6zmVxEp.png)
+
+**Custom Blackstone Background and Resin Brick Border**
+![Custom Message 2](https://i.imgur.com/T47B1gM.png)
+
+**Custom Redstone Block Background and Diorite Border**
+![Custom Message 3](https://i.imgur.com/nBFllTg.png)
+
+**Custom Slime Block Background and Sand Border**
+![Custom Message 4](https://i.imgur.com/fkixEBu.png)
 
 **How it shows up in-game**
 ![In-Game Example](https://i.imgur.com/5GP3yGw.png)
@@ -76,11 +87,20 @@ Required arguments are surrounded by `[brackets]`
 ### `/gentlereminders get ConfigVersion`
 - Displays the version of the config file
 
+### `/gentlereminders get DisplayStyle`
+- Displays the current display style
+
 ### `/gentlereminders get TicksBetweenMessages`
 - Displays the number of ticks between messages, as well as minutes and seconds
 
 ### `/gentlereminders get Messages [pageNumber]`
 - Displays 5 messages at a time, starting at the page number specified
+
+### `/gentleReminders set DisplayStyle [style]`
+- Sets the display style to either `"default"`, `"light"`, `"dark"`, or `"chat"` (use the below command for `custom`)
+
+### `/gentleReminders set CustomDisplayStyle [bgTexture] [borderTexture] [enableIcon]`
+- Sets the display style to `custom`, then sets the background and border textures, as well as whether or not to include the exclamation mark
 
 ### `/gentlereminders set TicksBetweenMessages [ticks]`
 - Sets the number of ticks between messages
