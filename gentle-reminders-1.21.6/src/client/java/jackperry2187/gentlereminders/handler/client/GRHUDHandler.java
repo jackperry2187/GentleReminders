@@ -58,6 +58,7 @@ public class GRHUDHandler {
                 break;
             case "light":
             case "dark":
+            case "custom":
                 client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_TOAST_IN, 1.0F, 1.0F));
                 currentMessage = currentMessage != null ? currentMessage : GRMessageHandler.getRandomMessage();
                 isShowingCustomMessage = true;

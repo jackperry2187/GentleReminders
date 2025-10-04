@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import jackperry2187.gentlereminders.commands.client.customArguments.DisplayStyleArgument;
 import jackperry2187.gentlereminders.commands.client.customArguments.FormattingArgument;
+import jackperry2187.gentlereminders.commands.client.customArguments.TextureArgument;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
@@ -31,6 +32,11 @@ public class ArgumentInit {
                         .then(ClientCommandManager.literal("DisplayStyle")
                                 .then(ClientCommandManager.argument("style", DisplayStyleArgument.displayStyle())
                                 .executes(CommandInit::setDisplayStyle)))
+                        .then(ClientCommandManager.literal("CustomDisplayStyle")
+                                .then(ClientCommandManager.argument("bgTexture", TextureArgument.textureArgument())
+                                .then(ClientCommandManager.argument("borderTexture", TextureArgument.textureArgument())
+                                .then(ClientCommandManager.argument("includeIcon", BoolArgumentType.bool())
+                                .executes(CommandInit::setCustomDisplayStyle)))))
                         .then(ClientCommandManager.literal("TicksBetweenMessages")
                                 .then(ClientCommandManager.argument("ticks", IntegerArgumentType.integer())
                                 .executes(CommandInit::setTicksBetweenMessages)))
